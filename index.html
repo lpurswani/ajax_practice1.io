@@ -25,17 +25,25 @@
     </div>
 
     <script>
-        function loadDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-           document.getElementById("name").innerHTML = this.responseText;
-          }
-        };
-        xhttp.open("GET", "my_name.txt", true);
-        xhttp.send();
+      function revealName() {
+        var mRequest = new XMLHttpRequest();
+
+        mRequest.onreadystatechange = function(){
+        if(mRequest.readyState == 4 && mRequest.status == 200){
+          var nameObj = this.responseText;
+          console.log(nameObj);
+          nameObj = JSON.parse(nameObj);
+          console.log(nameObj.lastName);
+          document.getElementById("name").innerHTML = nameObj.firstName + " " + nameObj.lastName;
+          document.getElementById("info").innerHTML = "I am" + nameObj.age + "And I am a " + nameObj.role;
+        }
+      }
+
+        mRequest.open("GET", "my_name.json", true);
+        mRequest.send();
       }
     </script>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
